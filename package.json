@@ -1,0 +1,54 @@
+{
+  "name": "nuxt-svg-sprite-island",
+  "version": "1.0.0",
+  "description": "",
+  "repository": "maxsterly43/nuxt-svg-sprite-island",
+  "author": {
+    "name": "maxsterly43 <https://github.com/maxsterly43>",
+    "url": "https://github.com/maxsterly43"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    }
+  },
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build build",
+    "dev": "nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.13.2",
+    "svg-sprite": "^2.0.4"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^1.5.0",
+    "@nuxt/eslint-config": "^0.5.7",
+    "@nuxt/module-builder": "^0.8.4",
+    "@nuxt/schema": "^3.13.2",
+    "@nuxt/test-utils": "^3.14.2",
+    "@types/node": "latest",
+    "@types/svg-sprite": "^0.0.39",
+    "changelogen": "^0.5.7",
+    "eslint": "^9.11.0",
+    "nuxt": "^3.13.0",
+    "typescript": "latest",
+    "vitest": "^2.1.1",
+    "vue-tsc": "^2.1.6"
+  }
+}
