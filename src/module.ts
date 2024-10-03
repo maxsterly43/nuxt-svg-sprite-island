@@ -81,31 +81,33 @@ export default defineNuxtModule<ModuleOptions>({
       }
     }
 
-    await addComponentsDir({
-      path: resolverModule('./runtime/components/sprites'),
-      island: true,
-      global: true,
-    })
-
-    await addComponent({
-      name: 'SvgIcon',
-      filePath: resolverModule('./runtime/components/SvgIcon.vue'),
-      global: true,
-    })
-
-    if (_options.injectPublicAssets) {
-      _nuxt.hook('nitro:config', (nitroConfig) => {
-        nitroConfig.publicAssets ||= []
-        nitroConfig.publicAssets.push({
-          dir: resolverModule('./runtime/sprites'),
-          baseURL: '/sprites',
-          maxAge: 0,
-        })
+    _nuxt.hook('modules:done', async () => {
+      await addComponent({
+        name: 'SvgIcon',
+        filePath: resolverModule('./runtime/components/SvgIcon.vue'),
+        global: true,
       })
-    }
 
-    if (_options.htmlRenderGlobal) {
-      addServerPlugin(resolverModule('./runtime/plugins/injectGlobal.ts'))
-    }
+      await addComponentsDir({
+        path: resolverModule('./runtime/components/sprites'),
+        island: true,
+        global: true,
+      })
+
+      if (_options.injectPublicAssets) {
+        _nuxt.hook('nitro:config', (nitroConfig) => {
+          nitroConfig.publicAssets ||= []
+          nitroConfig.publicAssets.push({
+            dir: resolverModule('./runtime/sprites'),
+            baseURL: '/sprites',
+            maxAge: 0,
+          })
+        })
+      }
+
+      if (_options.htmlRenderGlobal) {
+        addServerPlugin(resolverModule('./runtime/plugins/injectGlobal.ts'))
+      }
+    })
   },
 })
