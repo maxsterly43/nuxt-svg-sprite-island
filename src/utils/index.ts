@@ -1,2 +1,2 @@
-export * from "./helpers";
-export * from "./spriteBuilder";
+export * from './helpers'
+export * from './spriteBuilder'
